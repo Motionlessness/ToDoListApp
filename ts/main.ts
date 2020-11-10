@@ -12,12 +12,17 @@ class ToDoItem{
 window.onload =  function(){
     let addItem = document.getElementById("addItem");
     addItem.onclick = main;
+    let itemString = localStorage.getItem("key");
+    let localItem:ToDoItem = JSON.parse(itemString);
+    displayToDoItem(localItem);
 }
 
 function main(){
     if(isValid()){
         let item = getToDoItem();
         displayToDoItem(item);
+        let itemString = JSON.stringify(item);
+        localStorage.setItem("key", itemString);
     }
 }
 
@@ -44,10 +49,13 @@ function displayToDoItem(item:ToDoItem):void{
     itemTitle.innerText = item.title;
 
     let itemDate = document.createElement("p");
-    itemDate.innerText = item.dateDue.toDateString();
+    itemDate.innerText = item.dateDue.toString();
 
     let itemDiv = document.createElement("div");
-    itemDiv.classList.add("toDo")
+    itemDiv.onclick = markComplete;
+    itemDiv.classList.add("toDo");
+    
+
     if(item.isComplete){itemDiv.classList.add("completed");}
 
     itemDiv.appendChild(itemTitle);
@@ -61,6 +69,17 @@ function displayToDoItem(item:ToDoItem):void{
         incompleteItems.appendChild(itemDiv);
     }
 }
-
+function markComplete() {
+    let itemDiv = <HTMLElement>this;
+    if (itemDiv.classList.contains("completed")) {
+        itemDiv.classList.remove("completed");
+        let incompleteItems = document.getElementById("incompleteItems");
+        incompleteItems.appendChild(itemDiv);
+    } else {
+        itemDiv.classList.add("completed");
+        let completedItems = document.getElementById("completeItems");
+        completedItems.appendChild(itemDiv);
+    }
+}
 function getUserInput(id:string):HTMLInputElement{ return <HTMLInputElement>document.getElementById(id)};
 // allow user to mark a todoitem as completed
