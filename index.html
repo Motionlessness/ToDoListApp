@@ -4,8 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
+    <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
 </head>
 <body>
     <h1>ToDo List</h1>
+
+    <label for="title">Title</label>
+    <input type="text" id="title">
+    <span>*</span><br />
+
+    <label for="dateDue">Due Date</label>
+    <input type="text" id="dateDue">
+    <span>*</span><br />
+
+    <input type="checkbox" id="isComplete">
+    <label for="isComplete">Is Complete?</label><br />
+
+    <input type="button" value="Add ToDo Item">
+    <script src="https://unpkg.com/js-datepicker"></script>
+    <script>
+        const picker = datepicker("#dateDue");
+        picker.setMin(new Date());
+    </script>
 </body>
 </html>
