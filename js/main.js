@@ -34,6 +34,7 @@ function displayToDoItem(item) {
     var itemDate = document.createElement("p");
     itemDate.innerText = item.dateDue.toDateString();
     var itemDiv = document.createElement("div");
+    itemDiv.classList.add("toDo");
     if (item.isComplete) {
         itemDiv.classList.add("completed");
     }

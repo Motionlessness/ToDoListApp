@@ -47,6 +47,7 @@ function displayToDoItem(item:ToDoItem):void{
     itemDate.innerText = item.dateDue.toDateString();
 
     let itemDiv = document.createElement("div");
+    itemDiv.classList.add("toDo")
     if(item.isComplete){itemDiv.classList.add("completed");}
 
     itemDiv.appendChild(itemTitle);

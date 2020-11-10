@@ -1,0 +1,21 @@
+.toDo{
+    width: 25%;
+    box-sizing: border-box;
+    background-color: aliceblue;
+    padding: .5em;
+    border-radius: .75em;
+    margin: 1em;
+}
+
+.toDo h3{
+    margin: 0px;
+}
+
+.toDo p{
+    margin: 0px;
+}
+
+.completed {
+    text-decoration: line-through;
+    background-color: green;
+}
