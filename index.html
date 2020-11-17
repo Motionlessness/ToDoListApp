@@ -18,6 +18,9 @@
     <input type="text" id="dateDue">
     <span>*</span><br />
 
+    <label for="details">Details</label>
+    <textarea type="text" id="details" rows="5" cols="50"></textarea><br />
+
     <input type="checkbox" id="isComplete">
     <label for="isComplete">Is Complete?</label><br />
 
@@ -26,6 +29,12 @@
     <h3>ToDo Items</h3>
     <div id="incompleteItems"></div>
     <div id="completeItems"></div>
+
+    <div id="itemModal" class="modal">
+        <div id="modalContent" class="modal-content">
+            <span class="close" id="close">&times;</span>
+        </div>
+    </div>
     <script src="https://unpkg.com/js-datepicker"></script>
     <script src="js/main.js"></script>
 </body>

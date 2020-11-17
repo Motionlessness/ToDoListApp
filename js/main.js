@@ -38,21 +38,29 @@ function getToDoItem() {
     userItem.dateDue = new Date(itemDueDate.value);
     var itemComplete = getUserInput("isComplete");
     userItem.isComplete = itemComplete.checked;
+    var itemDetails = getUserInput("details");
+    userItem.details = itemDetails.value;
     return userItem;
 }
 function displayToDoItem(item) {
     var itemTitle = document.createElement("h3");
-    itemTitle.innerText = item.title;
-    var itemDate = document.createElement("p");
-    itemDate.innerText = item.dateDue.toString();
+    itemTitle.innerText = "Title: " + item.title;
+    var itemDate = document.createElement("h4");
+    itemDate.innerText = "Date due: " + item.dateDue.toString();
+    var itemDetails = document.createElement("p");
+    itemDetails.innerText = "Details: " + item.details;
+    itemDetails.style.display = "none";
+    itemDetails.id = "divDetails";
     var itemDiv = document.createElement("div");
     itemDiv.onclick = markComplete;
+    itemDiv.onauxclick = displayDetails;
     itemDiv.classList.add("toDo");
     if (item.isComplete) {
         itemDiv.classList.add("completed");
     }
     itemDiv.appendChild(itemTitle);
     itemDiv.appendChild(itemDate);
+    itemDiv.appendChild(itemDetails);
     if (item.isComplete) {
         var completedItems = document.getElementById("completeItems");
         completedItems.appendChild(itemDiv);
@@ -61,6 +69,31 @@ function displayToDoItem(item) {
         var incompleteItems = document.getElementById("incompleteItems");
         incompleteItems.appendChild(itemDiv);
     }
+}
+function displayDetails() {
+    var itemDiv = this;
+    var itemModal = document.getElementById("itemModal");
+    var itemDetails = document.getElementById("modalContent");
+    var closeSpan = document.getElementById("close");
+    var itemTemp = document.createElement("div");
+    var completed = document.createElement("p");
+    var divDetails = document.getElementById("divDetails");
+    if (itemDiv.classList.contains("completed")) {
+        completed.innerText = "Complete!";
+        itemDetails.appendChild(completed);
+    }
+    divDetails.style.display = "block";
+    itemTemp.innerHTML = itemDiv.innerHTML;
+    itemDetails.appendChild(itemTemp);
+    itemModal.style.display = "block";
+    closeSpan.onclick = function () {
+        if (itemDiv.classList.contains("completed")) {
+            itemDetails.removeChild(completed);
+        }
+        itemDetails.removeChild(itemTemp);
+        itemModal.style.display = "none";
+        divDetails.style.display = "none";
+    };
 }
 function markComplete() {
     var itemDiv = this;
