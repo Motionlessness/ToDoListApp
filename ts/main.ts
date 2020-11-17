@@ -2,6 +2,9 @@
 const picker = datepicker("#dateDue");
 picker.setMin(new Date());
 
+const items = [];
+
+
 class ToDoItem{
     title:string;
     dateDue:Date;
@@ -12,18 +15,25 @@ class ToDoItem{
 window.onload =  function(){
     let addItem = document.getElementById("addItem");
     addItem.onclick = main;
-    let itemString = localStorage.getItem("key");
-    let localItem:ToDoItem = JSON.parse(itemString);
-    displayToDoItem(localItem);
+    let itemString = localStorage.getItem("ToDoListItems");
+    let localItem:Array<ToDoItem> = JSON.parse(itemString);
+    localItem.forEach((item, i) => {
+        displayToDoItem(item);
+    });
 }
 
 function main(){
     if(isValid()){
         let item = getToDoItem();
+        items.push(item);
         displayToDoItem(item);
-        let itemString = JSON.stringify(item);
-        localStorage.setItem("key", itemString);
+        itemsToJson();
     }
+}
+
+function itemsToJson() {
+    let itemString = JSON.stringify(items);
+    localStorage.setItem("ToDoListItems", itemString);
 }
 
 function isValid():boolean{

@@ -1,5 +1,6 @@
 var picker = datepicker("#dateDue");
 picker.setMin(new Date());
+var items = [];
 var ToDoItem = (function () {
     function ToDoItem() {
     }
@@ -8,17 +9,23 @@ var ToDoItem = (function () {
 window.onload = function () {
     var addItem = document.getElementById("addItem");
     addItem.onclick = main;
-    var itemString = localStorage.getItem("key");
+    var itemString = localStorage.getItem("ToDoListItems");
     var localItem = JSON.parse(itemString);
-    displayToDoItem(localItem);
+    localItem.forEach(function (item, i) {
+        displayToDoItem(item);
+    });
 };
 function main() {
     if (isValid()) {
         var item = getToDoItem();
+        items.push(item);
         displayToDoItem(item);
-        var itemString = JSON.stringify(item);
-        localStorage.setItem("key", itemString);
+        itemsToJson();
     }
+}
+function itemsToJson() {
+    var itemString = JSON.stringify(items);
+    localStorage.setItem("ToDoListItems", itemString);
 }
 function isValid() {
     return true;
