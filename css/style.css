@@ -27,7 +27,7 @@
 }
 
 #incompleteItems{
-    border: .8em solid black;
+    border: .8em solid brown;
     margin: .2em;
 }
 
@@ -65,3 +65,11 @@
     margin-bottom: 1em;
 }
 
+*[type=text] {
+    color: azure;
+    background-color:rgba(5, 5, 5, 1);
+}
+
+body {
+    background-color: rgba(50, 50, 50, 0.85);
+}
